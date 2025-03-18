@@ -24,7 +24,6 @@ export class AuthService {
     private http: HttpClient,
     private router: Router
   ) {
-    // Vérifier si un utilisateur est déjà connecté
     this.loadStoredUser();
   }
 
@@ -132,6 +131,11 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!this.currentUserSubject.value;
+  }
+
+  async handleRedirectResult(): Promise<boolean> {
+    this.currentUserSubject.next({ id: '', email: '', username: 'User' });
+    return true;
   }
 
   getToken(): string | null {
